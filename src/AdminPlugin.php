@@ -4,9 +4,13 @@ namespace JeffersonGoncalves\Filament\Admin;
 
 use Filament\Contracts\Plugin;
 use Filament\Panel;
+use JeffersonGoncalves\Filament\Admin\Resources\Admins\AdminResource;
 
 class AdminPlugin implements Plugin
 {
+    /** @var class-string<AdminResource> */
+    protected string $resource = AdminResource::class;
+
     public function getId(): string
     {
         return 'filament-admin';
@@ -14,10 +18,14 @@ class AdminPlugin implements Plugin
 
     public function register(Panel $panel): void
     {
+        $panel->resources([
+            $this->resource,
+        ]);
     }
 
     public function boot(Panel $panel): void
     {
+        //
     }
 
     public static function make(): static
@@ -27,6 +35,26 @@ class AdminPlugin implements Plugin
 
     public static function get(): static
     {
-        return filament(app(static::class)->getId());
+        /** @var static $plugin */
+        $plugin = filament(app(static::class)->getId());
+
+        return $plugin;
+    }
+
+    /**
+     * Swap in the app's own resource (usually a subclass of AdminResource).
+     *
+     * @param  class-string<AdminResource>  $resource
+     */
+    public function resource(string $resource): static
+    {
+        $this->resource = $resource;
+
+        return $this;
+    }
+
+    public function getResource(): string
+    {
+        return $this->resource;
     }
 }
