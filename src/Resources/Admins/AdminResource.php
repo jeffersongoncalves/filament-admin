@@ -24,6 +24,9 @@ class AdminResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-user-circle';
 
+    // Filament 3 derives the slug from the namespace ("admins/admins") otherwise.
+    protected static ?string $slug = 'admins';
+
     protected static bool $isGloballySearchable = true;
 
     protected static ?string $recordTitleAttribute = 'name';

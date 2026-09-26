@@ -21,6 +21,10 @@ it('registers the admin resource on the panel', function () {
         ->and(AdminResource::getModel())->toBe(Admin::class);
 });
 
+it('serves the resource under /admins', function () {
+    expect(AdminResource::getUrl('index'))->toEndWith('/admin/admins');
+});
+
 it('lets the app swap in its own resource and pages follow it', function () {
     $panel = Panel::make()->id('custom')->plugin(AdminPlugin::make()->resource(CustomAdminResource::class));
 
