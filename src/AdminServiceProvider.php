@@ -9,10 +9,6 @@ class AdminServiceProvider extends PackageServiceProvider
 {
     public function configurePackage(Package $package): void
     {
-        $package
-            ->name('filament-admin')
-            ->hasConfigFile()
-            ->hasViews()
-            ->hasMigrations();
+        $package->name('filament-admin');
     }
 }

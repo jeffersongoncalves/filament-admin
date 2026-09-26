@@ -4,6 +4,8 @@ namespace JeffersonGoncalves\Filament\Admin\Tests\Fixtures;
 
 use Filament\Panel;
 use Filament\PanelProvider;
+use JeffersonGoncalves\Filament\Admin\AdminPlugin;
+use JeffersonGoncalves\Filament\Admin\Pages\Auth\Login;
 
 class TestPanelProvider extends PanelProvider
 {
@@ -13,6 +15,10 @@ class TestPanelProvider extends PanelProvider
             ->default()
             ->id('admin')
             ->path('admin')
-            ->login();
+            ->login(Login::class)
+            ->authGuard('admin')
+            ->plugins([
+                AdminPlugin::make(),
+            ]);
     }
 }
