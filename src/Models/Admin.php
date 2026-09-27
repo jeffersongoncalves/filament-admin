@@ -7,12 +7,13 @@ use Filament\Models\Contracts\HasAvatar;
 use Filament\Panel;
 use Illuminate\Support\Facades\Storage;
 use JeffersonGoncalves\Admin\Models\Admin as BaseAdmin;
+use JeffersonGoncalves\Filament\Admin\Facades\FilamentAdmin;
 
 class Admin extends BaseAdmin implements FilamentUser, HasAvatar
 {
     public function canAccessPanel(Panel $panel): bool
     {
-        return true;
+        return FilamentAdmin::canAccessPanel($this, $panel);
     }
 
     public function canImpersonate(): bool

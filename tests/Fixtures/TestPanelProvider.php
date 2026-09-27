@@ -2,6 +2,7 @@
 
 namespace JeffersonGoncalves\Filament\Admin\Tests\Fixtures;
 
+use Filament\Http\Middleware\Authenticate;
 use Filament\Panel;
 use Filament\PanelProvider;
 use JeffersonGoncalves\Filament\Admin\AdminPlugin;
@@ -17,6 +18,7 @@ class TestPanelProvider extends PanelProvider
             ->path('admin')
             ->login(Login::class)
             ->authGuard('admin')
+            ->authMiddleware([Authenticate::class])
             ->plugins([
                 AdminPlugin::make(),
             ]);
