@@ -9,7 +9,7 @@ class AdminServiceProvider extends PackageServiceProvider
 {
     public function configurePackage(Package $package): void
     {
-        $package->name('filament-admin')->hasConfigFile();
+        $package->name('filament-admin')->hasConfigFile()->hasTranslations();
     }
 
     public function packageRegistered(): void

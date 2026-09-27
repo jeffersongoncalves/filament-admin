@@ -11,6 +11,8 @@ class AdminPlugin implements Plugin
     /** @var class-string<AdminResource> */
     protected string $resource = AdminResource::class;
 
+    protected ?string $navigationGroup = null;
+
     public function getId(): string
     {
         return 'filament-admin';
@@ -56,5 +58,20 @@ class AdminPlugin implements Plugin
     public function getResource(): string
     {
         return $this->resource;
+    }
+
+    /**
+     * Navigation group for the resource. null keeps the translated default ("Management").
+     */
+    public function navigationGroup(?string $navigationGroup): static
+    {
+        $this->navigationGroup = $navigationGroup;
+
+        return $this;
+    }
+
+    public function getNavigationGroup(): string
+    {
+        return $this->navigationGroup ?? __('filament-admin::admin.navigation_group');
     }
 }
