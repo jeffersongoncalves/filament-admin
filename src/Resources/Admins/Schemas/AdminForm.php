@@ -32,19 +32,23 @@ class AdminForm
     {
         return [
             Toggle::make('status')
+                ->label(__('filament-admin::admin.fields.status'))
                 ->required()
                 ->default(true)
                 ->autofocus(),
             TextInput::make('name')
+                ->label(__('filament-admin::admin.fields.name'))
                 ->required()
                 ->string()
                 ->autofocus(),
             TextInput::make('email')
+                ->label(__('filament-admin::admin.fields.email'))
                 ->required()
                 ->string()
                 ->unique(ignoreRecord: true)
                 ->email(),
             TextInput::make('password')
+                ->label(__('filament-admin::admin.fields.password'))
                 ->password()
                 ->required(fn (string $context): bool => $context === 'create')
                 ->dehydrated(fn ($state) => filled($state))

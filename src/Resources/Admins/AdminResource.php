@@ -9,6 +9,7 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Cache;
 use JeffersonGoncalves\Admin\Observers\AdminObserver;
+use JeffersonGoncalves\Filament\Admin\AdminPlugin;
 use JeffersonGoncalves\Filament\Admin\Models\Admin;
 use JeffersonGoncalves\Filament\Admin\Resources\Admins\Pages\CreateAdmin;
 use JeffersonGoncalves\Filament\Admin\Resources\Admins\Pages\EditAdmin;
@@ -51,22 +52,24 @@ class AdminResource extends Resource
 
     public static function getModelLabel(): string
     {
-        return __('Admin');
+        return __('filament-admin::admin.singular');
     }
 
     public static function getPluralModelLabel(): string
     {
-        return __('Admins');
+        return __('filament-admin::admin.plural');
     }
 
     public static function getNavigationLabel(): string
     {
-        return __('Admins');
+        return __('filament-admin::admin.plural');
     }
 
     public static function getNavigationGroup(): ?string
     {
-        return __('Management');
+        return filament()->getCurrentPanel()?->hasPlugin('filament-admin')
+            ? AdminPlugin::get()->getNavigationGroup()
+            : __('filament-admin::admin.navigation_group');
     }
 
     public static function getNavigationBadge(): ?string

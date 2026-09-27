@@ -38,6 +38,23 @@ it('lets the app swap in its own resource and pages follow it', function () {
     expect(ListAdmins::getResource())->toBe(CustomAdminResource::class);
 });
 
+it('ships translated labels', function (string $locale, string $plural, string $group) {
+    app()->setLocale($locale);
+
+    expect(AdminResource::getPluralModelLabel())->toBe($plural)
+        ->and(AdminResource::getNavigationGroup())->toBe($group);
+})->with([
+    ['en', 'Admins', 'Management'],
+    ['pt_BR', 'Administradores', 'Gerenciamento'],
+    ['es', 'Administradores', 'Gestión'],
+]);
+
+it('lets the plugin set the navigation group', function () {
+    AdminPlugin::get()->navigationGroup('Team');
+
+    expect(AdminResource::getNavigationGroup())->toBe('Team');
+});
+
 it('lets active admins access any panel and impersonate', function () {
     $admin = Admin::factory()->make();
 
