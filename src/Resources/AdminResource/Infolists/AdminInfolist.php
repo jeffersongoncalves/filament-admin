@@ -1,6 +1,6 @@
 <?php
 
-namespace JeffersonGoncalves\Filament\Admin\Resources\Admins\Schemas;
+namespace JeffersonGoncalves\Filament\Admin\Resources\AdminResource\Infolists;
 
 use Filament\Infolists\Components\Component;
 use Filament\Infolists\Components\IconEntry;

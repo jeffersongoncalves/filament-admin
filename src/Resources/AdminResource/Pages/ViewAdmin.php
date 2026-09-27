@@ -1,12 +1,12 @@
 <?php
 
-namespace JeffersonGoncalves\Filament\Admin\Resources\Admins\Pages;
+namespace JeffersonGoncalves\Filament\Admin\Resources\AdminResource\Pages;
 
 use Filament\Actions\DeleteAction;
 use Filament\Actions\EditAction;
 use Filament\Resources\Pages\ViewRecord;
-use JeffersonGoncalves\Filament\Admin\Resources\Admins\AdminResource;
-use JeffersonGoncalves\Filament\Admin\Resources\Admins\Pages\Concerns\ResolvesResource;
+use JeffersonGoncalves\Filament\Admin\Resources\AdminResource;
+use JeffersonGoncalves\Filament\Admin\Resources\AdminResource\Pages\Concerns\ResolvesResource;
 
 class ViewAdmin extends ViewRecord
 {

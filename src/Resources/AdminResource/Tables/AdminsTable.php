@@ -1,6 +1,6 @@
 <?php
 
-namespace JeffersonGoncalves\Filament\Admin\Resources\Admins\Tables;
+namespace JeffersonGoncalves\Filament\Admin\Resources\AdminResource\Tables;
 
 use Filament\Tables\Actions\DeleteAction;
 use Filament\Tables\Actions\EditAction;

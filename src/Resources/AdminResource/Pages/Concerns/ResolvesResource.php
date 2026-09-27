@@ -1,6 +1,6 @@
 <?php
 
-namespace JeffersonGoncalves\Filament\Admin\Resources\Admins\Pages\Concerns;
+namespace JeffersonGoncalves\Filament\Admin\Resources\AdminResource\Pages\Concerns;
 
 use Filament\Facades\Filament;
 use JeffersonGoncalves\Filament\Admin\AdminPlugin;

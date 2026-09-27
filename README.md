@@ -93,8 +93,8 @@ Pair it with [filament-user](https://github.com/jeffersongoncalves/filament-user
 ### Extending
 
 ```php
-use JeffersonGoncalves\Filament\Admin\Resources\Admins\AdminResource;
-use JeffersonGoncalves\Filament\Admin\Resources\Admins\Tables\AdminsTable;
+use JeffersonGoncalves\Filament\Admin\Resources\AdminResource;
+use JeffersonGoncalves\Filament\Admin\Resources\AdminResource\Tables\AdminsTable;
 
 class MyAdminsTable extends AdminsTable
 {

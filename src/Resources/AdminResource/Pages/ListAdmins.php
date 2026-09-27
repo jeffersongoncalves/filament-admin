@@ -1,11 +1,11 @@
 <?php
 
-namespace JeffersonGoncalves\Filament\Admin\Resources\Admins\Pages;
+namespace JeffersonGoncalves\Filament\Admin\Resources\AdminResource\Pages;
 
 use Filament\Actions\CreateAction;
 use Filament\Resources\Pages\ListRecords;
-use JeffersonGoncalves\Filament\Admin\Resources\Admins\AdminResource;
-use JeffersonGoncalves\Filament\Admin\Resources\Admins\Pages\Concerns\ResolvesResource;
+use JeffersonGoncalves\Filament\Admin\Resources\AdminResource;
+use JeffersonGoncalves\Filament\Admin\Resources\AdminResource\Pages\Concerns\ResolvesResource;
 
 class ListAdmins extends ListRecords
 {

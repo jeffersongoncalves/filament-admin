@@ -4,7 +4,7 @@ namespace JeffersonGoncalves\Filament\Admin;
 
 use Filament\Contracts\Plugin;
 use Filament\Panel;
-use JeffersonGoncalves\Filament\Admin\Resources\Admins\AdminResource;
+use JeffersonGoncalves\Filament\Admin\Resources\AdminResource;
 
 class AdminPlugin implements Plugin
 {

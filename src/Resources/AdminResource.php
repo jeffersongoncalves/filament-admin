@@ -1,6 +1,6 @@
 <?php
 
-namespace JeffersonGoncalves\Filament\Admin\Resources\Admins;
+namespace JeffersonGoncalves\Filament\Admin\Resources;
 
 use Filament\Forms\Form;
 use Filament\Infolists\Infolist;
@@ -11,13 +11,13 @@ use Illuminate\Support\Facades\Cache;
 use JeffersonGoncalves\Admin\Observers\AdminObserver;
 use JeffersonGoncalves\Filament\Admin\AdminPlugin;
 use JeffersonGoncalves\Filament\Admin\Models\Admin;
-use JeffersonGoncalves\Filament\Admin\Resources\Admins\Pages\CreateAdmin;
-use JeffersonGoncalves\Filament\Admin\Resources\Admins\Pages\EditAdmin;
-use JeffersonGoncalves\Filament\Admin\Resources\Admins\Pages\ListAdmins;
-use JeffersonGoncalves\Filament\Admin\Resources\Admins\Pages\ViewAdmin;
-use JeffersonGoncalves\Filament\Admin\Resources\Admins\Schemas\AdminForm;
-use JeffersonGoncalves\Filament\Admin\Resources\Admins\Schemas\AdminInfolist;
-use JeffersonGoncalves\Filament\Admin\Resources\Admins\Tables\AdminsTable;
+use JeffersonGoncalves\Filament\Admin\Resources\AdminResource\Forms\AdminForm;
+use JeffersonGoncalves\Filament\Admin\Resources\AdminResource\Infolists\AdminInfolist;
+use JeffersonGoncalves\Filament\Admin\Resources\AdminResource\Pages\CreateAdmin;
+use JeffersonGoncalves\Filament\Admin\Resources\AdminResource\Pages\EditAdmin;
+use JeffersonGoncalves\Filament\Admin\Resources\AdminResource\Pages\ListAdmins;
+use JeffersonGoncalves\Filament\Admin\Resources\AdminResource\Pages\ViewAdmin;
+use JeffersonGoncalves\Filament\Admin\Resources\AdminResource\Tables\AdminsTable;
 
 class AdminResource extends Resource
 {

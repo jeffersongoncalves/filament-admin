@@ -2,7 +2,7 @@
 
 namespace JeffersonGoncalves\Filament\Admin\Tests\Fixtures;
 
-use JeffersonGoncalves\Filament\Admin\Resources\Admins\AdminResource;
+use JeffersonGoncalves\Filament\Admin\Resources\AdminResource;
 
 class CustomAdminResource extends AdminResource
 {
