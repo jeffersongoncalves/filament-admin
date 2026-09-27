@@ -35,27 +35,27 @@ class AdminsTable
     {
         return [
             IconColumn::make('status')
-                ->label(__('filament-admin::admin.fields.status'))
+                ->label(__('filament-admin::resources/admin.fields.status'))
                 ->boolean()
                 ->trueIcon('heroicon-o-check-badge')
                 ->falseIcon('heroicon-o-x-mark')
                 ->sortable(),
             TextColumn::make('name')
-                ->label(__('filament-admin::admin.fields.name'))
+                ->label(__('filament-admin::resources/admin.fields.name'))
                 ->searchable()
                 ->sortable(),
             TextColumn::make('email')
-                ->label(__('filament-admin::admin.fields.email'))
+                ->label(__('filament-admin::resources/admin.fields.email'))
                 ->searchable()
                 ->sortable()
                 ->toggleable(),
             TextColumn::make('created_at')
-                ->label(__('filament-admin::admin.fields.created_at'))
+                ->label(__('filament-admin::resources/admin.fields.created_at'))
                 ->dateTime()
                 ->sortable()
                 ->toggleable(isToggledHiddenByDefault: true),
             TextColumn::make('updated_at')
-                ->label(__('filament-admin::admin.fields.updated_at'))
+                ->label(__('filament-admin::resources/admin.fields.updated_at'))
                 ->dateTime()
                 ->sortable()
                 ->toggleable(isToggledHiddenByDefault: true),

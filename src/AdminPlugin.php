@@ -72,6 +72,6 @@ class AdminPlugin implements Plugin
 
     public function getNavigationGroup(): string
     {
-        return $this->navigationGroup ?? __('filament-admin::admin.navigation_group');
+        return $this->navigationGroup ?? __('filament-admin::resources/admin.navigation.group');
     }
 }
