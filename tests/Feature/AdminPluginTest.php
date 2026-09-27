@@ -2,6 +2,7 @@
 
 use Filament\Facades\Filament;
 use Filament\Panel;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Hash;
 use JeffersonGoncalves\Filament\Admin\AdminPlugin;
 use JeffersonGoncalves\Filament\Admin\Facades\FilamentAdmin;
@@ -43,7 +44,21 @@ it('ships translated labels', function (string $locale, string $plural, string $
     ['en', 'Admins', 'Management'],
     ['pt_BR', 'Administradores', 'Gerenciamento'],
     ['es', 'Administradores', 'Gestión'],
+    ['de', 'Administratoren', 'Verwaltung'],
+    ['fr', 'Administrateurs', 'Gestion'],
 ]);
+
+it('keeps every locale in sync with en', function () {
+    $keys = fn (string $file): array => array_keys(Arr::dot(require $file));
+    $en = $keys(__DIR__.'/../../resources/lang/en/resources/admin.php');
+    $files = glob(__DIR__.'/../../resources/lang/*/resources/admin.php');
+
+    expect($files)->toHaveCount(19);
+
+    foreach ($files as $file) {
+        expect($keys($file))->toEqualCanonicalizing($en, $file);
+    }
+});
 
 it('lets the plugin set the navigation group', function () {
     AdminPlugin::get()->navigationGroup('Team');

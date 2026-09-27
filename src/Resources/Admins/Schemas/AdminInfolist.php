@@ -35,16 +35,16 @@ class AdminInfolist
     {
         return [
             TextEntry::make('id')
-                ->label(__('filament-admin::admin.fields.id')),
+                ->label(__('filament-admin::resources/admin.fields.id')),
             IconEntry::make('status')
-                ->label(__('filament-admin::admin.fields.status'))
+                ->label(__('filament-admin::resources/admin.fields.status'))
                 ->boolean(),
             TextEntry::make('name')
-                ->label(__('filament-admin::admin.fields.name')),
+                ->label(__('filament-admin::resources/admin.fields.name')),
             TextEntry::make('email')
-                ->label(__('filament-admin::admin.fields.email'))
+                ->label(__('filament-admin::resources/admin.fields.email'))
                 ->copyable()
-                ->copyMessage(__('filament-admin::admin.email_copied'))
+                ->copyMessage(__('filament-admin::resources/admin.actions.email_copied'))
                 ->copyMessageDuration(1500),
         ];
     }
