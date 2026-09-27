@@ -37,7 +37,31 @@ class Admin extends BaseAdmin
 }
 ```
 
-Point `auth.providers.admins.model` to `App\Models\Admin::class` in `config/auth.php`. The model implements `FilamentUser` (any panel), `HasAvatar`, and `canImpersonate()` returns `true`.
+Point `auth.providers.admins.model` to `App\Models\Admin::class` in `config/auth.php`. The model implements `FilamentUser`, `HasAvatar`, and `canImpersonate()` returns `true`.
+
+### Panel access
+
+By default only active admins (`status = true`) can access a panel. Filament checks this on every request, so deactivating an admin also ends any open session or remember-me login.
+
+Override the gate in `AppServiceProvider::boot()`:
+
+```php
+use Filament\Panel;
+use JeffersonGoncalves\Filament\Admin\Facades\FilamentAdmin;
+
+FilamentAdmin::canAccessPanelUsing(
+    fn (Admin $admin, Panel $panel): bool => $admin->status && $panel->getId() === 'admin',
+);
+```
+
+Or through config (`php artisan vendor:publish --tag=filament-admin-config`), with an invokable class called as `__invoke(Admin $admin, Panel $panel): bool`:
+
+```php
+// config/filament-admin.php
+'can_access_panel' => App\Filament\AdminPanelGate::class,
+```
+
+The facade callback wins over the config value.
 
 ### Panel
 
