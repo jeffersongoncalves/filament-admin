@@ -82,7 +82,7 @@ The resource sits in the "Management" navigation group. Change it with `AdminPlu
 
 ### Translations
 
-Labels ship in `en`, `pt_BR` and `es` under the `filament-admin::admin.*` keys. Publish them to customize or add locales:
+Labels ship in 19 locales (`ar`, `az`, `de`, `en`, `es`, `fa`, `fr`, `hi`, `it`, `ja`, `nl`, `pl`, `pt`, `pt_BR`, `ru`, `tr`, `uk`, `uz`, `zh_CN`) under the `filament-admin::resources/admin.*` keys (`navigation.*`, `fields.*`, `actions.*`). Publish them to customize or add locales:
 
 ```bash
 php artisan vendor:publish --tag=filament-admin-translations

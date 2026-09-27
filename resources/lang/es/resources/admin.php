@@ -1,10 +1,11 @@
 <?php
 
 return [
-    'singular' => 'Administrador',
-    'plural' => 'Administradores',
-    'navigation_group' => 'Gestión',
-    'email_copied' => '¡Correo electrónico copiado con éxito!',
+    'navigation' => [
+        'group' => 'Gestión',
+        'label' => 'Administradores',
+        'singular' => 'Administrador',
+    ],
     'fields' => [
         'id' => 'ID',
         'status' => 'Estado',
@@ -13,5 +14,8 @@ return [
         'password' => 'Contraseña',
         'created_at' => 'Creado el',
         'updated_at' => 'Actualizado el',
+    ],
+    'actions' => [
+        'email_copied' => '¡Correo electrónico copiado con éxito!',
     ],
 ];

@@ -52,24 +52,24 @@ class AdminResource extends Resource
 
     public static function getModelLabel(): string
     {
-        return __('filament-admin::admin.singular');
+        return __('filament-admin::resources/admin.navigation.singular');
     }
 
     public static function getPluralModelLabel(): string
     {
-        return __('filament-admin::admin.plural');
+        return __('filament-admin::resources/admin.navigation.label');
     }
 
     public static function getNavigationLabel(): string
     {
-        return __('filament-admin::admin.plural');
+        return __('filament-admin::resources/admin.navigation.label');
     }
 
     public static function getNavigationGroup(): ?string
     {
         return filament()->getCurrentPanel()?->hasPlugin('filament-admin')
             ? AdminPlugin::get()->getNavigationGroup()
-            : __('filament-admin::admin.navigation_group');
+            : __('filament-admin::resources/admin.navigation.group');
     }
 
     public static function getNavigationBadge(): ?string
