@@ -78,6 +78,16 @@ $panel
     ]);
 ```
 
+The resource sits in the "Management" navigation group. Change it with `AdminPlugin::make()->navigationGroup('Team')`.
+
+### Translations
+
+Labels ship in `en`, `pt_BR` and `es` under the `filament-admin::admin.*` keys. Publish them to customize or add locales:
+
+```bash
+php artisan vendor:publish --tag=filament-admin-translations
+```
+
 Pair it with [filament-user](https://github.com/jeffersongoncalves/filament-user)'s `UserPlugin::make()` on the same panel to manage users too.
 
 ### Extending

@@ -34,13 +34,17 @@ class AdminInfolist
     public static function components(): array
     {
         return [
-            TextEntry::make('id'),
+            TextEntry::make('id')
+                ->label(__('filament-admin::admin.fields.id')),
             IconEntry::make('status')
+                ->label(__('filament-admin::admin.fields.status'))
                 ->boolean(),
-            TextEntry::make('name'),
+            TextEntry::make('name')
+                ->label(__('filament-admin::admin.fields.name')),
             TextEntry::make('email')
+                ->label(__('filament-admin::admin.fields.email'))
                 ->copyable()
-                ->copyMessage('Email copied successfully!')
+                ->copyMessage(__('filament-admin::admin.email_copied'))
                 ->copyMessageDuration(1500),
         ];
     }
