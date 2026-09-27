@@ -9,6 +9,11 @@ class AdminServiceProvider extends PackageServiceProvider
 {
     public function configurePackage(Package $package): void
     {
-        $package->name('filament-admin');
+        $package->name('filament-admin')->hasConfigFile();
+    }
+
+    public function packageRegistered(): void
+    {
+        $this->app->singleton(FilamentAdmin::class);
     }
 }

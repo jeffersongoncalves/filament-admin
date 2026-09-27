@@ -4,12 +4,14 @@ use Filament\Facades\Filament;
 use Filament\Panel;
 use Illuminate\Support\Facades\Hash;
 use JeffersonGoncalves\Filament\Admin\AdminPlugin;
+use JeffersonGoncalves\Filament\Admin\Facades\FilamentAdmin;
 use JeffersonGoncalves\Filament\Admin\Pages\Auth\Login;
 use JeffersonGoncalves\Filament\Admin\Resources\Admins\AdminResource;
 use JeffersonGoncalves\Filament\Admin\Resources\Admins\Pages\CreateAdmin;
 use JeffersonGoncalves\Filament\Admin\Resources\Admins\Pages\ListAdmins;
 use JeffersonGoncalves\Filament\Admin\Tests\Fixtures\Admin;
 use JeffersonGoncalves\Filament\Admin\Tests\Fixtures\CustomAdminResource;
+use JeffersonGoncalves\Filament\Admin\Tests\Fixtures\DenyAllGate;
 use Livewire\Livewire;
 
 beforeEach(function () {
@@ -36,11 +38,40 @@ it('lets the app swap in its own resource and pages follow it', function () {
     expect(ListAdmins::getResource())->toBe(CustomAdminResource::class);
 });
 
-it('can access any panel and impersonate', function () {
+it('lets active admins access any panel and impersonate', function () {
     $admin = Admin::factory()->make();
 
     expect($admin->canAccessPanel(Panel::make()->id('admin')))->toBeTrue()
-        ->and($admin->canImpersonate())->toBeTrue();
+        ->and($admin->canImpersonate())->toBeTrue()
+        ->and(Admin::factory()->inactive()->make()->canAccessPanel(Panel::make()->id('admin')))->toBeFalse();
+});
+
+it('locks a deactivated admin out of an already open session', function () {
+    $admin = Admin::factory()->create();
+    $this->actingAs($admin, 'admin');
+
+    $this->get(AdminResource::getUrl('index'))->assertSuccessful();
+
+    $admin->update(['status' => false]);
+
+    $this->get(AdminResource::getUrl('index'))->assertForbidden();
+});
+
+it('lets the app override the panel gate through the facade', function () {
+    FilamentAdmin::canAccessPanelUsing(fn (Admin $admin, Panel $panel): bool => $panel->getId() === 'admin');
+
+    $inactive = Admin::factory()->inactive()->make();
+
+    expect($inactive->canAccessPanel(Panel::make()->id('admin')))->toBeTrue()
+        ->and($inactive->canAccessPanel(Panel::make()->id('other')))->toBeFalse();
+
+    FilamentAdmin::canAccessPanelUsing(null);
+});
+
+it('lets the app override the panel gate through config', function () {
+    config(['filament-admin.can_access_panel' => DenyAllGate::class]);
+
+    expect(Admin::factory()->make()->canAccessPanel(Panel::make()->id('admin')))->toBeFalse();
 });
 
 it('lists admins', function () {
