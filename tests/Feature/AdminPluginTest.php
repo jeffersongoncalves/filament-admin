@@ -9,6 +9,7 @@ use JeffersonGoncalves\Filament\Admin\Facades\FilamentAdmin;
 use JeffersonGoncalves\Filament\Admin\Pages\Auth\Login;
 use JeffersonGoncalves\Filament\Admin\Resources\Admins\AdminResource;
 use JeffersonGoncalves\Filament\Admin\Resources\Admins\Pages\CreateAdmin;
+use JeffersonGoncalves\Filament\Admin\Resources\Admins\Pages\EditAdmin;
 use JeffersonGoncalves\Filament\Admin\Resources\Admins\Pages\ListAdmins;
 use JeffersonGoncalves\Filament\Admin\Tests\Fixtures\Admin;
 use JeffersonGoncalves\Filament\Admin\Tests\Fixtures\CustomAdminResource;
@@ -144,4 +145,29 @@ it('only lets active admins log in through the admin guard', function () {
         ->assertHasNoFormErrors();
 
     $this->assertAuthenticated('admin');
+});
+
+it('keeps the password when an admin is edited without one', function () {
+    $admin = Admin::factory()->create(['password' => 'secret123']);
+    $this->actingAs($admin, 'admin');
+
+    Livewire::test(EditAdmin::class, ['record' => $admin->getRouteKey()])
+        ->fillForm(['name' => 'Renamed', 'password' => null])
+        ->call('save')
+        ->assertHasNoFormErrors();
+
+    $admin->refresh();
+
+    expect($admin->name)->toBe('Renamed')
+        ->and(Hash::check('secret123', $admin->password))->toBeTrue();
+});
+
+it('rejects a duplicate admin email', function () {
+    Admin::factory()->create(['email' => 'taken@example.com']);
+    $this->actingAs(Admin::factory()->create(), 'admin');
+
+    Livewire::test(CreateAdmin::class)
+        ->fillForm(['status' => true, 'name' => 'Jane', 'email' => 'taken@example.com', 'password' => 'secret123'])
+        ->call('create')
+        ->assertHasFormErrors(['email' => 'unique']);
 });
