@@ -17,12 +17,15 @@ use JeffersonGoncalves\Filament\AdditionalInformation\FilamentAdditionalInformat
 use JeffersonGoncalves\Filament\Admin\AdminServiceProvider;
 use JeffersonGoncalves\Filament\Admin\Tests\Fixtures\Admin;
 use JeffersonGoncalves\Filament\Admin\Tests\Fixtures\TestPanelProvider;
+use JeffersonGoncalves\PestPluginDatabaseMigrations\LoadsPackageMigrations;
 use Livewire\LivewireServiceProvider;
 use Orchestra\Testbench\TestCase as Orchestra;
 use RyanChandler\BladeCaptureDirective\BladeCaptureDirectiveServiceProvider;
 
 abstract class TestCase extends Orchestra
 {
+    use LoadsPackageMigrations;
+
     protected function getPackageProviders($app): array
     {
         return [
@@ -54,6 +57,6 @@ abstract class TestCase extends Orchestra
 
     protected function defineDatabaseMigrations(): void
     {
-        (include __DIR__.'/../vendor/jeffersongoncalves/laravel-admin/database/migrations/create_admins_table.php.stub')->up();
+        $this->loadPackageMigrations(LaravelAdminServiceProvider::class);
     }
 }
