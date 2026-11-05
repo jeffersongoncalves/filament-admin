@@ -4,6 +4,7 @@ use Filament\Actions\ActionGroup;
 use Filament\Facades\Filament;
 use Filament\Panel;
 use Filament\Tables\Enums\RecordActionsPosition;
+use Filament\Tables\Table;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Hash;
 use JeffersonGoncalves\Filament\Admin\AdminPlugin;
@@ -120,6 +121,18 @@ it('keeps record actions loose with the table default position', function () {
     expect($table->getRecordActions())->toHaveCount(3)
         ->and($table->getRecordActions()[0])->not->toBeInstanceOf(ActionGroup::class)
         ->and($table->getRecordActionsPosition())->toBe(RecordActionsPosition::AfterColumns);
+});
+
+it('keeps a globally configured record actions position when the plugin sets none', function () {
+    $this->actingAs(Admin::factory()->create(), 'admin');
+
+    $position = Table::configureUsing(
+        fn (Table $table) => $table->recordActionsPosition(RecordActionsPosition::BeforeColumns),
+        during: fn () => Livewire::test(ListAdmins::class)->instance()->getTable()->getRecordActionsPosition(),
+    );
+
+    expect(AdminPlugin::get()->getRecordActionsPosition())->toBeNull()
+        ->and($position)->toBe(RecordActionsPosition::BeforeColumns);
 });
 
 it('lets the plugin group record actions and set their position', function () {

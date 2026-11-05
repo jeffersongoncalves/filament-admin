@@ -91,6 +91,9 @@ class AdminPlugin implements Plugin
         return $this;
     }
 
+    /**
+     * Whether the record actions should be wrapped in an ActionGroup.
+     */
     public function shouldGroupRecordActions(): bool
     {
         return (bool) value($this->groupRecordActions);
@@ -106,6 +109,9 @@ class AdminPlugin implements Plugin
         return $this;
     }
 
+    /**
+     * Record actions position override, or null to keep the table's (or global) default.
+     */
     public function getRecordActionsPosition(): RecordActionsPosition|Closure|null
     {
         return $this->recordActionsPosition;

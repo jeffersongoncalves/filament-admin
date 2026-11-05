@@ -14,6 +14,9 @@ use JeffersonGoncalves\Filament\Admin\AdminPlugin;
 
 class AdminsTable
 {
+    /**
+     * Columns, filters and record actions (grouped/positioned per AdminPlugin).
+     */
     public static function configure(Table $table): Table
     {
         $plugin = filament()->getCurrentPanel()?->hasPlugin('filament-admin') ? AdminPlugin::get() : null;
