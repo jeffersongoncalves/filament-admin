@@ -2,8 +2,10 @@
 
 namespace JeffersonGoncalves\Filament\Admin;
 
+use Closure;
 use Filament\Contracts\Plugin;
 use Filament\Panel;
+use Filament\Tables\Enums\RecordActionsPosition;
 use JeffersonGoncalves\Filament\Admin\Resources\Admins\AdminResource;
 
 class AdminPlugin implements Plugin
@@ -12,6 +14,10 @@ class AdminPlugin implements Plugin
     protected string $resource = AdminResource::class;
 
     protected ?string $navigationGroup = null;
+
+    protected bool|Closure $groupRecordActions = false;
+
+    protected RecordActionsPosition|Closure|null $recordActionsPosition = null;
 
     public function getId(): string
     {
@@ -73,5 +79,41 @@ class AdminPlugin implements Plugin
     public function getNavigationGroup(): string
     {
         return $this->navigationGroup ?? __('filament-admin::resources/admin.navigation.group');
+    }
+
+    /**
+     * Wrap the resource table's record actions in a single ActionGroup dropdown.
+     */
+    public function groupRecordActions(bool|Closure $condition = true): static
+    {
+        $this->groupRecordActions = $condition;
+
+        return $this;
+    }
+
+    /**
+     * Whether the record actions should be wrapped in an ActionGroup.
+     */
+    public function shouldGroupRecordActions(): bool
+    {
+        return (bool) value($this->groupRecordActions);
+    }
+
+    /**
+     * Position of the resource table's record actions. null keeps the table's (or global) default.
+     */
+    public function recordActionsPosition(RecordActionsPosition|Closure|null $position): static
+    {
+        $this->recordActionsPosition = $position;
+
+        return $this;
+    }
+
+    /**
+     * Record actions position override, or null to keep the table's (or global) default.
+     */
+    public function getRecordActionsPosition(): RecordActionsPosition|Closure|null
+    {
+        return $this->recordActionsPosition;
     }
 }
