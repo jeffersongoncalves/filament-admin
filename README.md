@@ -80,6 +80,16 @@ $panel
 
 The resource sits in the "Management" navigation group. Change it with `AdminPlugin::make()->navigationGroup('Team')`.
 
+Record actions render as loose buttons in the table's default position. Group them in a dropdown and/or move them:
+
+```php
+use Filament\Tables\Enums\ActionsPosition;
+
+AdminPlugin::make()
+    ->groupRecordActions()                                   // wrap in ActionGroup::make([...])
+    ->recordActionsPosition(ActionsPosition::BeforeColumns); // null keeps the table/global default
+```
+
 ### Translations
 
 Labels ship in 19 locales (`ar`, `az`, `de`, `en`, `es`, `fa`, `fr`, `hi`, `it`, `ja`, `nl`, `pl`, `pt`, `pt_BR`, `ru`, `tr`, `uk`, `uz`, `zh_CN`) under the `filament-admin::resources/admin.*` keys (`navigation.*`, `fields.*`, `actions.*`). Publish them to customize or add locales:
