@@ -2,6 +2,9 @@
 
 use Filament\Facades\Filament;
 use Filament\Panel;
+use Filament\Tables\Actions\ActionGroup;
+use Filament\Tables\Enums\ActionsPosition;
+use Filament\Tables\Table;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Hash;
 use JeffersonGoncalves\Filament\Admin\AdminPlugin;
@@ -112,6 +115,40 @@ it('lists admins', function () {
     $this->actingAs($admins->first(), 'admin');
 
     Livewire::test(ListAdmins::class)->assertCanSeeTableRecords($admins);
+});
+
+it('keeps record actions loose with the table default position', function () {
+    $this->actingAs(Admin::factory()->create(), 'admin');
+
+    $table = Livewire::test(ListAdmins::class)->instance()->getTable();
+
+    expect($table->getActions())->toHaveCount(3)
+        ->and($table->getActions()[0])->not->toBeInstanceOf(ActionGroup::class)
+        ->and($table->getActionsPosition())->toBe(ActionsPosition::AfterColumns);
+});
+
+it('keeps a globally configured record actions position when the plugin sets none', function () {
+    $this->actingAs(Admin::factory()->create(), 'admin');
+
+    $position = Table::configureUsing(
+        fn (Table $table) => $table->actionsPosition(ActionsPosition::BeforeColumns),
+        during: fn () => Livewire::test(ListAdmins::class)->instance()->getTable()->getActionsPosition(),
+    );
+
+    expect(AdminPlugin::get()->getRecordActionsPosition())->toBeNull()
+        ->and($position)->toBe(ActionsPosition::BeforeColumns);
+});
+
+it('lets the plugin group record actions and set their position', function () {
+    AdminPlugin::get()->groupRecordActions()->recordActionsPosition(ActionsPosition::BeforeColumns);
+    $this->actingAs(Admin::factory()->create(), 'admin');
+
+    $table = Livewire::test(ListAdmins::class)->instance()->getTable();
+
+    expect($table->getActions())->toHaveCount(1)
+        ->and($table->getActions()[0])->toBeInstanceOf(ActionGroup::class)
+        ->and($table->getActions()[0]->getActions())->toHaveCount(3)
+        ->and($table->getActionsPosition())->toBe(ActionsPosition::BeforeColumns);
 });
 
 it('creates an admin with a hashed password', function () {
